@@ -8,8 +8,7 @@ using ZwSoft.ZwCAD.Runtime;
 
 namespace GerarPerfil
 {
-public
-static class Extensions
+public static class Extensions
 {
   public
     static Point3d[] ToArray(this Point3dCollection pts)

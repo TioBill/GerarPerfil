@@ -42,19 +42,19 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ZcWindows">
-      <HintPath>G:\Drives compartilhados\OSM  compartilhado - Equipe\EQUIPE\WILLIAM\Programas\ObjectArx SDK 2025\ZWCAD_2024_ZRXSDK\inc\ZcWindows.dll</HintPath>
+      <HintPath>libs\ZcWindows.dll</HintPath>
     </Reference>
     <Reference Include="ZdWindows">
-      <HintPath>G:\Drives compartilhados\OSM  compartilhado - Equipe\EQUIPE\WILLIAM\Programas\ObjectArx SDK 2025\ZWCAD_2024_ZRXSDK\inc\ZdWindows.dll</HintPath>
+      <HintPath>libs\ZdWindows.dll</HintPath>
     </Reference>
     <Reference Include="ZwDatabaseMgd">
-      <HintPath>G:\Drives compartilhados\OSM  compartilhado - Equipe\EQUIPE\WILLIAM\Programas\ObjectArx SDK 2025\ZWCAD_2024_ZRXSDK\inc\ZwDatabaseMgd.dll</HintPath>
+      <HintPath>libs\ZwDatabaseMgd.dll</HintPath>
     </Reference>
     <Reference Include="ZwDatabaseMgdBrep">
-      <HintPath>G:\Drives compartilhados\OSM  compartilhado - Equipe\EQUIPE\WILLIAM\Programas\ObjectArx SDK 2025\ZWCAD_2024_ZRXSDK\inc\ZwDatabaseMgdBrep.dll</HintPath>
+      <HintPath>libs\ZwDatabaseMgdBrep.dll</HintPath>
     </Reference>
     <Reference Include="ZwManaged">
-      <HintPath>G:\Drives compartilhados\OSM  compartilhado - Equipe\EQUIPE\WILLIAM\Programas\ObjectArx SDK 2025\ZWCAD_2024_ZRXSDK\inc\ZwManaged.dll</HintPath>
+      <HintPath>libs\ZwManaged.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
