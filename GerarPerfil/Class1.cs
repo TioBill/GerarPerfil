@@ -76,24 +76,24 @@ public class Class1
             for (int i = 0; i < gi.NumberOfVertices; i++)
             {
                 // Desenhando Linhas das Estacas
-                desenhaLinhaEstacas(gi.GetPoint3dAt(i), baseLine.StartPoint.Y, blockTableRec, trans);
+                DesenhaLinhaEstacas(gi.GetPoint3dAt(i), baseLine.StartPoint.Y, blockTableRec, trans);
 
                 curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 20;
 
                 // Gera numeração das estacas
-                geraNumeracaoEstacas(gi.GetPoint3dAt(0), gi.GetPoint3dAt(i), i, tamanhoTexto.Value, curPosicaoTexto,
+                GeraNumeracaoEstacas(gi.GetPoint3dAt(0), gi.GetPoint3dAt(i), i, tamanhoTexto.Value, curPosicaoTexto,
                                      distancia.Value, blockTableRec, trans);
 
                 curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 40;
 
                 // Gera Nivel da Geratrix Inferior (G.I)
-                geraGINivel(gi.GetPoint3dAt(i), baseLine.StartPoint.Y, valorInicial.Value, tamanhoTexto.Value,
+                GeraGINivel(gi.GetPoint3dAt(i), baseLine.StartPoint.Y, valorInicial.Value, tamanhoTexto.Value,
                             curPosicaoTexto, blockTableRec, trans);
 
                 curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 60;
 
                 // Gera a Distancia Progressiva
-                geraDistanciaProgressiva(gi.GetPoint3dAt(0), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
+                GeraDistanciaProgressiva(gi.GetPoint3dAt(0), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
                                          blockTableRec, trans);
 
                 curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 80;
@@ -101,20 +101,20 @@ public class Class1
                 // Gera extensão
                 if (i > 0)
                 {
-                    geraExtensao(gi.GetPoint3dAt(i - 1), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
+                    GeraExtensao(gi.GetPoint3dAt(i - 1), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
                                  blockTableRec, trans);
 
                     curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 100;
 
                     // Gera declividade
-                    geraDeclividade(gi.GetPoint3dAt(i - 1), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
+                    GeraDeclividade(gi.GetPoint3dAt(i - 1), gi.GetPoint3dAt(i), curPosicaoTexto, tamanhoTexto.Value,
                                     blockTableRec, trans);
                 }
 
                 curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 120;
 
                 // Gera nivel de terreno e Profundiade
-                geraNivelTerrenoEProf(gi.GetPoint3dAt(i), terreno, baseLine, valorInicial.Value, curPosicaoTexto,
+                GeraNivelTerrenoEProf(gi.GetPoint3dAt(i), terreno, baseLine, valorInicial.Value, curPosicaoTexto,
                                       tamanhoTexto.Value, blockTableRec, trans);
             }
 
@@ -123,8 +123,7 @@ public class Class1
     }
 
     // GerarPerfil Functions
-  private
-    static void geraNivelTerrenoEProf(Point3d gi, Polyline terreno, Line baseLine, double valorInicial,
+  private static void GeraNivelTerrenoEProf(Point3d gi, Polyline terreno, Line baseLine, double valorInicial,
                                       double posicaoYTexto, double tamanhoTexto, BlockTableRecord blockTableRec,
                                       Transaction trans, int scale = 10)
     {
@@ -169,7 +168,7 @@ public class Class1
     }
 
   private
-    static void geraDeclividade(Point3d startPoint, Point3d endPoint, double posicaoYTexto, double tamanhoTexto,
+    static void GeraDeclividade(Point3d startPoint, Point3d endPoint, double posicaoYTexto, double tamanhoTexto,
                                 BlockTableRecord blockTableRec, Transaction trans, int scale = 10)
     {
         using(DBText text = new DBText())
@@ -186,7 +185,7 @@ public class Class1
     }
 
   private
-    static void geraExtensao(Point3d startPoint, Point3d endPoint, double posicaoYTexto, double tamanhoTexto,
+    static void GeraExtensao(Point3d startPoint, Point3d endPoint, double posicaoYTexto, double tamanhoTexto,
                              BlockTableRecord blockTableRec, Transaction trans)
     {
         using(DBText text = new DBText())
@@ -202,7 +201,7 @@ public class Class1
     }
 
   private
-    static void geraDistanciaProgressiva(Point3d startPoint, Point3d endPoint, double posicaoYTexto,
+    static void GeraDistanciaProgressiva(Point3d startPoint, Point3d endPoint, double posicaoYTexto,
                                          double tamanhoTexto, BlockTableRecord blockTableRec, Transaction trans)
     {
         using(DBText text = new DBText())
@@ -218,7 +217,7 @@ public class Class1
     }
 
   private
-    static void geraNumeracaoEstacas(Point3d startPoint, Point3d endPoint, int posicao, double tamanhoTexto, double posicaoYTexto,
+    static void GeraNumeracaoEstacas(Point3d startPoint, Point3d endPoint, int posicao, double tamanhoTexto, double posicaoYTexto,
                                      double separadorEstacas, BlockTableRecord blockTableRec, Transaction trans)
     {
         using(DBText text = new DBText())
@@ -231,7 +230,7 @@ public class Class1
             if (separadorEstacas > 0)
             {
                 text.TextString = ((int)(distanciaCur / separadorEstacas)).ToString() +
-                                  ((int)(distanciaCur % 50) != 0 ? " + " + ((int)(distanciaCur % 50)).ToString() : "");
+                                  ((int)(distanciaCur % separadorEstacas) != 0 ? " + " + ((int)(distanciaCur % 50)).ToString() : "");
             }
             else
             {
@@ -249,7 +248,7 @@ public class Class1
     }
 
   private
-    static void desenhaLinhaEstacas(Point3d gi, double baseLine, BlockTableRecord blockTableRec, Transaction trans)
+    static void DesenhaLinhaEstacas(Point3d gi, double baseLine, BlockTableRecord blockTableRec, Transaction trans)
     {
         using(Line currentLine = new Line(gi, new Point3d(gi.X, baseLine, 0)))
         {
@@ -259,7 +258,7 @@ public class Class1
     }
 
   private
-    static void geraGINivel(Point3d gi, double baseline, double valorInicial, double tamanhoTexto, double posicaoTexto,
+    static void GeraGINivel(Point3d gi, double baseline, double valorInicial, double tamanhoTexto, double posicaoTexto,
                             BlockTableRecord blockTableRec, Transaction trans, int scale = 10)
     {
         double curNivel = (gi.Y - baseline) / scale + valorInicial;
