@@ -230,7 +230,7 @@ public class Class1
             if (separadorEstacas > 0)
             {
                 text.TextString = ((int)(distanciaCur / separadorEstacas)).ToString() +
-                                  ((int)(distanciaCur % separadorEstacas) != 0 ? " + " + ((int)(distanciaCur % 50)).ToString() : "");
+                                  ((int)(distanciaCur % separadorEstacas) != 0 ? " + " + ((int)(distanciaCur % separadorEstacas)).ToString() : "");
             }
             else
             {
