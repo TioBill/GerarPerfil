@@ -146,7 +146,7 @@ namespace GerarPerfil
         private static Polyline GeraPontos(Polyline gi, double distancia, BlockTableRecord blockTableRec, Transaction trans)
         {
             Point3dCollection pts = new Point3dCollection();
-            Point3dCollection plDraw = new Point3dCollection();
+            Point2dCollection plDraw = new Point2dCollection();
 
             int i;
 
@@ -158,30 +158,32 @@ namespace GerarPerfil
                 for (double currentDistance = gi.StartPoint.X; currentDistance <= gi.EndPoint.X; currentDistance += distancia)
                 {
                     while (i < gi.NumberOfVertices && gi.GetPoint2dAt(i).X < currentDistance)
-                        plDraw.Add(gi.GetPoint3dAt(i++));
+                        plDraw.Add(gi.GetPoint2dAt(i++));
 
-                    line.StartPoint = new Point3d(currentDistance, gi.StartPoint.Y, gi.StartPoint.Z);
-                    line.EndPoint = new Point3d(currentDistance, gi.StartPoint.Y + 1, gi.StartPoint.Z);
-
-                    if (gi.GetPoint3dAt(i) == line.StartPoint)
-                        i++;
+                    line.StartPoint = new Point3d(currentDistance, gi.StartPoint.Y, 0);
+                    line.EndPoint = new Point3d(currentDistance, gi.StartPoint.Y + 1, 0);
 
                     line.IntersectWith(gi, Intersect.ExtendThis, pts, IntPtr.Zero, IntPtr.Zero);
 
-                    plDraw.Add(pts.ToArray().Last());
+                    Point2d last = new Point2d(pts.ToArray().Last().X, pts.ToArray().Last().Y);
+
+                    if (gi.GetPoint2dAt(i) == last)
+                        i++;
+
+                    plDraw.Add(last);
                 }
             }
 
             while (i < gi.NumberOfVertices)
-                plDraw.Add((gi.GetPoint3dAt(i++)));
+                plDraw.Add((gi.GetPoint2dAt(i++)));
 
             // Draw Line 
             i = 0;
 
             Polyline pl = new Polyline();
 
-            foreach (Point3d vertex in plDraw.ToArray())
-                pl.AddVertexAt(i++, new Point2d(vertex.X, vertex.Y), 0, 0, 0);
+            foreach (Point2d vertex in plDraw.ToArray())
+                pl.AddVertexAt(i++, vertex, 0, 0, 0);
 
             blockTableRec.AppendEntity(pl);
             trans.AddNewlyCreatedDBObject(pl, true);
