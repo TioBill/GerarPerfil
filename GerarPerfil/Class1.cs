@@ -55,7 +55,7 @@ namespace GerarPerfil
 
             PromptDoubleResult tamanhoTexto = GetDouble("Type a font-height:");
 
-            if (valorInicial.Status != PromptStatus.OK)
+            if (tamanhoTexto.Status != PromptStatus.OK)
                 return;
 
             PromptDoubleResult distancia = GetDouble("Increase your station number every how much distance?", true);
