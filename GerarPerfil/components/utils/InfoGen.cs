@@ -14,7 +14,7 @@ namespace Utils
 {
     internal class InfoGen : InfoGenInterface
     {
-        public static int TextRotation { get; set; }
+
 
         // GerarPerfil Functions
         [Obsolete("", true)]
