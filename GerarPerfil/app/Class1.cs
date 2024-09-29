@@ -104,7 +104,7 @@ namespace GerarPerfil
                     // Desenhando Linhas das Estacas
 
 
-                    
+
                     DesenhaLinhaEstacas(profile.Invert.GetPoint3dAt(i), baseLine.StartPoint.Y, blockTableRec, trans);
 
                     curPosicaoTexto = baseLine.StartPoint.Y - tamanhoTexto.Value * 20;

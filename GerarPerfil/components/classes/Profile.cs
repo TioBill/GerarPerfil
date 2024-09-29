@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 
+using Utils;
+
 namespace Classes
 {
     internal struct Profile
@@ -13,7 +15,10 @@ namespace Classes
         public Polyline Invert { set; get; }
         public Polyline Terrain { set; get; }
         public Line BaseLine { set; get; }
-
+        public double Scale { set; get; }
+        public Text TextSet { get; set; }
+        public double SeparadorEstacas { get; set; }
+        public double ValorInicial { get; set; }
 
         public struct Text
         {
@@ -27,24 +32,15 @@ namespace Classes
             }
         }
 
-        public struct Position
+        public Profile(Polyline invert, Polyline terrain, Line baseLine, double scale, Text textSet, double separadorEstacas, double valorInicial)
         {
-            Point3d StartPoint { get; }
-            Point3d EndPoint { get; }
-
-            public Position(Point3d startPoint, Point3d endPoint)
-            {
-                StartPoint = startPoint;
-                EndPoint = endPoint;
-            }
-        }
-
-        public Profile(Polyline gi, Polyline terreno, Line baseLine, double tamanhoTexto)
-        {
-            Invert = gi;
-            Terrain = terreno;
+            Invert = invert;
+            Terrain = terrain;
             BaseLine = baseLine;
-            TamanhoTexto = tamanhoTexto;
+            Scale = scale;
+            TextSet = textSet;
+            SeparadorEstacas = separadorEstacas;
+            ValorInicial = valorInicial;
         }
     }
 }
