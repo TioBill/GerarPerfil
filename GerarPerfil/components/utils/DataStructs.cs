@@ -1,22 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZwSoft.ZwCAD.Geometry;
 
 namespace Utils
 {
-    public struct Position
+    public struct Text
     {
-        public Point3d StartPoint { get; }
-        public Point3d EndPoint { get; }
+        public double TamanhoTexto { set; get; }
+        public double TextRotation { get; set; }
 
-        Position(Point3d startPoint, Point3d endPoint)
+        public Text(double tamanhoTexto, double textRotation)
         {
-            StartPoint = startPoint;
-            EndPoint = endPoint;
+            TamanhoTexto = tamanhoTexto;
+            TextRotation = textRotation;
         }
     }
-    
+
+    public struct Data
+    {
+        public string Estaca { set; get; }
+        public double TerrainLevel { set; get; }
+        public double InvertLevel { set; get; }
+        public double Depth { get; set; }
+        public double GradualDistance { set; get; }
+        public double Slope { set; get; }
+        public double Length { set; get; }
+        public Point3d Position { get; set; }
+
+        public void CalculateDepth()
+        {
+            Depth = Math.Round(TerrainLevel - InvertLevel, 2);
+        }
+    }
 }

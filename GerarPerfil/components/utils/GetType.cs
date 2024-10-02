@@ -7,9 +7,9 @@ using ZwSoft.ZwCAD.Geometry;
 
 namespace Utils
 {
-    internal class GetType
+    internal static class GetType
     {
-        public static PromptDoubleResult GetDouble(string message = "Type a double value:", bool allowZero = false)
+        public static PromptDoubleResult TypeDouble(string message = "Type a double value:", double? defaultValue = null, bool allowZero = false)
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Editor ed = doc.Editor;
@@ -19,10 +19,13 @@ namespace Utils
             opts.AllowNegative = false;
             opts.AllowZero = allowZero;
 
+            if (defaultValue.HasValue)
+                opts.DefaultValue = defaultValue.Value;
+
             return ed.GetDouble(opts);
         }
 
-        public static PromptEntityResult GetPolyline(string message = "Select a polyline:",
+        public static PromptEntityResult SelectPolyline(string message = "Select a polyline:",
                                                 string rejectMessage = "Must be a Polyline...")
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
@@ -35,7 +38,7 @@ namespace Utils
             return ed.GetEntity(obj);
         }
 
-        public static PromptEntityResult GetLine(string message = "Select a line:", string rejectMessage = "Must be a line...")
+        public static PromptEntityResult SelectLine(string message = "Select a line:", string rejectMessage = "Must be a line...")
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
             Editor ed = doc.Editor;
@@ -46,7 +49,8 @@ namespace Utils
 
             return ed.GetEntity(obj);
         }
-        public static Polyline GenPoly(Point2dCollection points)
+
+        public static Polyline GetPolyline(Point2dCollection points)
         {
             Polyline pl = new Polyline();
 
@@ -58,12 +62,30 @@ namespace Utils
             return pl;
         }
 
-        public static Line DesenhaLinhaEstacas(Point3d startPoint, Point3d endPoint)
+        public static Line GetLine(Point3d startPoint, Point3d endPoint)
         {
             return new Line(startPoint, endPoint);
         }
 
-        public static DBText GenDBText(Profile profile, Point3d coords, string textString)
+        public static Line GetLine(Point3d startPoint, double yPosition)
+        {
+            return new Line(startPoint, new Point3d(startPoint.X, yPosition, startPoint.Z));
+        }
+
+        public static DBText GetDBText<T>(Profile profile, T content, Point3d pos)
+        {
+            DBText text = new DBText()
+            { 
+                TextString = content.ToString(),
+                Position = pos,
+                Height = profile.TextSet.TamanhoTexto,
+                Rotation = profile.TextSet.TextRotation
+            };
+
+            return text;
+        }
+
+        public static DBText GetDBText(Profile profile, Point3d coords, string textString)
         {
             DBText text = new DBText()
             {

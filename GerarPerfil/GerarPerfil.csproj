@@ -58,20 +58,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="app\Class1.cs" />
+    <Compile Include="app\gerarPerfil\GerarPerfil.cs" />
     <Compile Include="components\classes\Drawing.cs" />
     <Compile Include="components\utils\DataStructs.cs" />
-    <Compile Include="components\utils\InfoGenInterface.cs" />
     <Compile Include="components\classes\Profile.cs" />
-    <Compile Include="components\utils\InfoGen.cs" />
+    <Compile Include="components\utils\Extensions.cs" />
+    <Compile Include="components\classes\Profile.Extensions.cs" />
     <Compile Include="components\utils\GetType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="components\debug\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
